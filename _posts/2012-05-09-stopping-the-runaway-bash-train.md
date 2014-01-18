@@ -2,6 +2,7 @@
 layout: post
 title:  "Stopping the runaway Bash train"
 date:   2012-05-09 07:56:01
+comments: true
 ---
 
 If Perl is the duct tape that holds the Internet together, Bash would have to be the duct tape that holds a Linux system together. Love it or hate it, you’re going to use shell programming at some stage on a Linux system. From init scripts that start daemons to scripts that run backups, Bash (or another *sh shell) is used everywhere. You could even build websites using Bash+CGI if you really wanted (My OpenWRT router does exactly this for its webUI)

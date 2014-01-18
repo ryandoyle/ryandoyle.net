@@ -23,6 +23,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Cambria, Georgia, serif;
     margin-bottom: .5em;
     margin-top: 1em;
+    line-height: 1.3em;
 }
 
 p {
