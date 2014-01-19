@@ -1,0 +1,38 @@
+---
+layout: default
+title: RyanDoyle .net - My Internet House
+---
+
+
+<h1>About</h1>
+<p>Hi I'm Ryan. I do things with computers. I like <a href="http://www.ietf.org/rfc/rfc0793.txt">networking</a> <a href="http://tools.ietf.org/html/rfc2616">protocols</a>, <a href="https://www.kernel.org/">GNU/Linux</a>, <a href="https://puppetlabs.com">infastructure</a> <a href="http://babushka.me/">as</a> <a href="http://www.meetup.com/Infrastructure-Coders">code</a>, <a href="http://aws.amazon.com">disposable</a> <a href="https://github.com/dotcloud/docker">compute</a>, hacking in C and Ruby. That kind of stuff.</p>
+
+<h1>Recent Posts</h1>
+<ul>
+{% for post in site.posts limit:2 %}
+  <li>{{ post.date | date_to_string }} - <a href="{{ post.url }}">{{ post.title }}</a>
+    <p class="post-content-preview">{{ post.content | strip_html | truncatewords:50 }}</p>
+  </li>
+{% endfor %}
+</ul>
+
+<h1>Projects</h1>
+<ul>
+    <li><a href="/projects/ntp/">Public NTP Service</a> - I run a stratum 1 public NTP service that is syncronised off a GPS receiver. Click the link for statistics and connection information.</li>
+    <li><a href="http://files.doylenet.net/linux/packages/rhel/5/doylenet/">RPM Packages</a> - I package a selection of software into RPMs for RHEL/CentOS 5 that I could not find in the distributions repositories or in other common repositories such as RPM Forge. Some are repackaged RPMs from existing SRPMs and some are written from scratch with no existing spec file. If you need to install a package, I suggest installing my repo using the <a href="http://files.doylenet.net/linux/packages/rhel/5/doylenet/RPMS/x86_64/doylenet-repo-rhel5-1.0-1.noarch.rpm">following RPM</a></li>
+</ul>
+
+<h1>Papers & Essays</h1>
+<p>
+    <a href="/assets/papers/Frequency_analysis_second_level_domains_June_2010_RDoyle.pdf">Frequency analysis of second-level domain names and detection of pseudo-random domain generation</a><br />
+    This paper will analyse the letter distribution found in second level domains for the .net, .com and .org top level domains. This distribution will be compared with the letter distribution of pseudo-randomly generated domains found in malware.
+</p>
+<p>
+    <a href="/assets/papers/Image-based_CAPTCHA_with_JACI-RDoyle.pdf">Image-based CAPTCHA with JACI</a><br />
+    This paper proposes JACI (Just Another CAPTCHA Implementation). JACI is an image-based CAPTCHA technology that requires users to match like images with their partner image in order to pass the test. JACI is not dependant on keyboard interaction which aids some forms of accessibility and does not require internationalisation. Interaction is controlled with a pointing device such as a mouse; as each image is dragged and dropped over the other partner image, generating an overall rich user experience.
+
+</p>
+<p>
+    <a href="/assets/papers/Distributed_Bootstrapping_of_P2P_Networks-RDoyle.pdf">Distributed Bootstrapping of Peer-to-Peer Networks</a><br />
+    A completely distributed, fault-tolerant peer-to-peer network also requires a bootstrapping mechanism that is equally distributed and fault-tolerant. This paper aims to investigate alternative bootstrapping mechanisms than those seen in common peer-to-peer networks of the current day.
+</p>

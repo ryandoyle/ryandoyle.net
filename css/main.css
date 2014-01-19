@@ -54,6 +54,11 @@ a:visited { color: blue; }
   font-size: 80%;
 }
 
+.post-content-preview {
+    font-size: 100%;
+    font-style: italic;
+}
+
 /*****************************************************************************/
 /*
 /* Site
@@ -63,7 +68,7 @@ a:visited { color: blue; }
 .site {
   font-size: 115%;
   text-align: justify;
-  width: 42em;
+  width: 50em;
   margin: 3em auto 2em;
   line-height: 1.5em;
 }
@@ -107,9 +112,9 @@ a:visited { color: blue; }
   overflow: hidden;
 }
 
-.footer .contact {
-  float: left;
+.contact {
   margin-right: 3em;
+  display: inline-block;
 }
 
 .footer .contact a {
@@ -119,7 +124,6 @@ a:visited { color: blue; }
 .footer .rss {
   margin-top: 1.1em;
   margin-right: -.2em;
-  float: right;
 }
 
 .footer .rss img {

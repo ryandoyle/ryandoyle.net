@@ -2,6 +2,7 @@
 layout: post
 title:  "Bringing Postfix, Cyrus SASL, saslauthd, pam_mysql & MySQL all together"
 date:   2010-10-17 18:16:34
+comments: true
 ---
 
 I have had a constant battle with getting SASL authentication working within Postfix. My email accounts are stored in a MySQL database with MD5 encrypted passwords. I use Courier Authlib (authdaemond) to authenticate IMAP users fine, but I could never get Postfix/Cyrus talking correctly with authdaemond. I decided to look at other ways I could get SASL authentication working without Courier Authlib and this is a result of that effort. This setup assumes you are using CentOS/RHEL 5. Other distributions may have its files in different locations or already have the correct PAM packages in their software repository.
