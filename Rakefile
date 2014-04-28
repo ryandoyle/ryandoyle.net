@@ -16,26 +16,63 @@ SSHKit::Backend::Netssh.configure do |ssh|
   }
 end
 
+class Blog
+  def initialize(host, path, owner)
+    @host = host
+    @path = path
+    @owner = owner
+  end
+
+  def deploy!
+    compile
+    upload
+  end
+
+  private
+
+  def upload
+    with_deploy_location_ready do
+      @host.upload! "_site/", @path, recursive: true
+    end
+  end
+
+  def with_deploy_location_ready
+    create_deploy_path unless deploy_path_exists?
+    chown_to_owner unless deploy_path_owned?
+    yield
+  end
+
+  def deploy_path_exists?
+    @host.test "[ -d #{@path} ]"
+  end
+
+  def create_deploy_path
+    @host.as :root do
+      @host.execute 'mkdir', '-p', @path
+    end
+
+  end
+
+  def deploy_path_owned?
+    @host.test "[ `stat -c %U #{@path}` = '#{@owner}']"
+  end
+
+  def chown_to_owner
+    @host.as :root do
+      @host.execute 'chown', '-R', @owner, @path
+    end
+  end
+
+  def compile
+    @host.run_locally { execute 'jekyll', 'build' }
+  end
+
+end
+
 desc 'Deploy the site to production'
 task :deploy do
-
-  run_locally do
-    execute 'jekyll', 'build'
-  end
-
   on deploy_server do
-    unless test "[ -d #{deploy_path} ]"
-      as :root do
-        execute 'mkdir', '-p', deploy_path
-      end
-    end
-    unless test "[ `stat -c %U #{deploy_path}` = '#{deploy_user}']"
-      as :root do
-        execute 'chown', '-R', deploy_user, deploy_path
-      end
-    end
-    upload! "_site/", deploy_path, recursive: true
+    Blog.new(self, deploy_path, deploy_user).deploy!
   end
-
 end
 

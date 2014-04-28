@@ -6,3 +6,4 @@ paginate: 5
 paginate_path: "posts/page:num"
 deploy_server: serv1.doylenet.net
 deploy_path: /data/www/ryandoyle.net/www/
+deploy_user: ryan
