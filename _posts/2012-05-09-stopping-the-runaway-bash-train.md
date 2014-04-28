@@ -55,7 +55,7 @@ Simple? Yes. Flexible? Not so much. Sometimes we expect that there could be erro
 
 Exception Handling
 ------------------
-Lets grab a concept from modern languages and apply it to Bash - **Exception Handling**. That’s crazy! You can’t do that in Bash! Well, it’s not built-in but you can re-implement the same functionality.
+Lets grab a concept from modern languages and apply it to Bash - **Exception Handling**. That’s crazy! You can’t do that in Bash! Well, it’s not built-in but you can re-implement similar functionality.
 
 {% highlight bash %}
 #!/bin/bash
