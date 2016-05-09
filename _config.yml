@@ -1,7 +1,8 @@
 name: RyanDoyle.net
 markdown: redcarpet
-pygments: true
+highlighter: true
 permalink: /posts/:title/
+gems: [jekyll-paginate]
 paginate: 5
 paginate_path: "posts/page:num"
 deploy_server: serv1.doylenet.net

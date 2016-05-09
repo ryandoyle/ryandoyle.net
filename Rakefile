@@ -2,6 +2,7 @@
 require 'yaml'
 require 'sshkit'
 require 'sshkit/dsl'
+include SSHKit::DSL
 
 config = YAML.load_file('_config.yml')
 
