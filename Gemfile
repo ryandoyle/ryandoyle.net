@@ -6,5 +6,4 @@ gem 'redcarpet'
 gem 'jekyll-paginate'
 
 # Other stuff
-gem 'sshkit'
 gem 'rake'

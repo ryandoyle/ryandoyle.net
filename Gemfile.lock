@@ -23,9 +23,6 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
     mercenary (0.3.6)
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (3.1.1)
     rake (11.1.2)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
@@ -34,9 +31,6 @@ GEM
     rouge (1.10.1)
     safe_yaml (1.0.4)
     sass (3.4.22)
-    sshkit (1.10.0)
-      net-scp (>= 1.1.2)
-      net-ssh (>= 2.8.0)
 
 PLATFORMS
   ruby
@@ -46,7 +40,3 @@ DEPENDENCIES
   jekyll-paginate
   rake
   redcarpet
-  sshkit
-
-BUNDLED WITH
-   1.11.2
