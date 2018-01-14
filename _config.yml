@@ -1,6 +1,6 @@
 name: RyanDoyle.net
-markdown: redcarpet
-highlighter: true
+markdown: kramdown
+highlighter: rouge
 permalink: /posts/:title/
 gems: [jekyll-paginate]
 paginate: 5
