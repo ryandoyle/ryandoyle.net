@@ -1,4 +1,4 @@
-/*****************************************************************************/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans'); /*****************************************************************************/
 /*
 /* Common
 /*
@@ -14,7 +14,7 @@ html, body { height: 100%; }
 
 body {
   background-color: #fefefe;
-  font: 13.34px Calibri, Verdana, Arial, sans-serif;
+  font: 13.34px 'Open Sans', Arial, sans-serif;
   font-size: small;
   text-align: center;
 }
@@ -68,7 +68,7 @@ a:visited { color: blue; }
 .site {
   font-size: 115%;
   text-align: justify;
-  width: 50em;
+  width: 56em;
   margin: 3em auto 2em;
   line-height: 1.5em;
 }
