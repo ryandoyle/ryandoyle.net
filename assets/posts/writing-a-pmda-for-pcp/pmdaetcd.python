@@ -1,0 +1,132 @@
+#!/usr/bin/env pmpython
+from cpmapi import PM_TYPE_STRING, PM_INDOM_NULL, PM_SEM_INSTANT, PM_TYPE_U64, PM_SEM_COUNTER, PM_ERR_PMID, PM_ERR_AGAIN
+
+import requests
+from pcp.pmapi import pmUnits, pmContext
+from pcp.pmda import PMDA, pmdaMetric, pmdaInstid, pmdaIndom
+
+
+class EtcdPMDA(PMDA):
+
+    def __init__(self, name, domain):
+        super().__init__(name, domain)
+
+        self.add_metric(name + '.name', pmdaMetric(
+            PMDA.pmid(0, 0),
+            PM_TYPE_STRING,
+            PM_INDOM_NULL,
+            PM_SEM_INSTANT,
+            pmUnits()
+        ))
+        self.add_metric(name + '.id', pmdaMetric(
+            PMDA.pmid(0, 1),
+            PM_TYPE_STRING,
+            PM_INDOM_NULL,
+            PM_SEM_INSTANT,
+            pmUnits()
+        ))
+        self.add_metric(name + '.state', pmdaMetric(
+            PMDA.pmid(0, 2),
+            PM_TYPE_STRING,
+            PM_INDOM_NULL,
+            PM_SEM_INSTANT,
+            pmUnits()
+        ))
+        self.add_metric(name + '.recv_append_request', pmdaMetric(
+            PMDA.pmid(0, 3),
+            PM_TYPE_U64,
+            PM_INDOM_NULL,
+            PM_SEM_COUNTER,
+            pmUnits()
+        ))
+        self.add_metric(name + '.send_append_request', pmdaMetric(
+            PMDA.pmid(0, 4),
+            PM_TYPE_U64,
+            PM_INDOM_NULL,
+            PM_SEM_COUNTER,
+            pmUnits()
+        ))
+
+        self.stats_operations_instances = [
+            pmdaInstid(0, 'gets'),
+            pmdaInstid(1, 'sets'),
+            pmdaInstid(2, 'delete'),
+            pmdaInstid(3, 'update'),
+            pmdaInstid(4, 'create'),
+            pmdaInstid(5, 'compareAndSwap'),
+            pmdaInstid(6, 'compareAndDelete'),
+        ]
+        self.stats_operations_indom = self.indom(0)
+        self.add_indom(pmdaIndom(self.stats_operations_indom, self.stats_operations_instances))
+
+        self.add_metric(name + '.store.success', pmdaMetric(
+            self.pmid(1, 0),
+            PM_TYPE_U64,
+            self.stats_operations_indom,
+            PM_SEM_COUNTER,
+            pmUnits()
+        ))
+        self.add_metric(name + '.store.fail', pmdaMetric(
+            self.pmid(1, 1),
+            PM_TYPE_U64,
+            self.stats_operations_indom,
+            PM_SEM_COUNTER,
+            pmUnits()
+        ))
+        self.add_metric(name + '.store.expire', pmdaMetric(
+            self.pmid(1, 2),
+            PM_TYPE_U64,
+            PM_INDOM_NULL,
+            PM_SEM_COUNTER,
+            pmUnits()
+        ))
+        self.add_metric(name + '.store.watchers', pmdaMetric(
+            self.pmid(1, 3),
+            PM_TYPE_U64,
+            PM_INDOM_NULL,
+            PM_SEM_INSTANT,
+            pmUnits()
+        ))
+
+        self.set_fetch_callback(self.fetch_callback)
+        self.set_user(pmContext.pmGetConfig('PCP_USER'))
+
+    def fetch_callback(self, cluster, item, inst):
+        if cluster == 0:
+            try:
+                stats = requests.get('http://127.0.0.1:2379/v2/stats/self').json()
+            except Exception:
+                return [PM_ERR_AGAIN, 0]
+
+            if item == 0:
+                return [stats['name'], 1]
+            if item == 1:
+                return [stats['id'], 1]
+            if item == 2:
+                return [stats['state'], 1]
+            if item == 3:
+                return [stats['recvAppendRequestCnt'], 1]
+            if item == 4:
+                return [stats['sendAppendRequestCnt'], 1]
+        if cluster == 1:
+            try:
+                stats = requests.get('http://127.0.0.1:2379/v2/stats/store').json()
+            except Exception:
+                return [PM_ERR_AGAIN, 0]
+
+            if item == 0:
+                metric_name_in_json = self.inst_name_lookup(self.stats_operations_indom, inst) + 'Success'
+                return [stats[metric_name_in_json], 1]
+            if item == 1:
+                metric_name_in_json = self.inst_name_lookup(self.stats_operations_indom, inst) + 'Fail'
+                return [stats[metric_name_in_json], 1]
+            if item == 2:
+                return [stats['expireCount'], 1]
+            if item == 3:
+                return [stats['watchers'], 1]
+
+        return [PM_ERR_PMID, 0]
+
+
+if __name__ == '__main__':
+    EtcdPMDA('etcd', 400).run()

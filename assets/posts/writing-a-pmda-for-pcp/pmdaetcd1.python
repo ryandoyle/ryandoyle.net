@@ -1,0 +1,29 @@
+#!/usr/bin/env pmpython
+from cpmapi import PM_TYPE_STRING, PM_INDOM_NULL, PM_SEM_INSTANT
+
+from pcp.pmapi import pmUnits, pmContext
+from pcp.pmda import PMDA, pmdaMetric
+
+
+class EtcdPMDA(PMDA):
+
+    def __init__(self, name, domain):
+        super().__init__(name, domain)
+
+        self.add_metric(name + '.demo', pmdaMetric(
+            PMDA.pmid(0, 0),
+            PM_TYPE_STRING,
+            PM_INDOM_NULL,
+            PM_SEM_INSTANT,
+            pmUnits()
+        ))
+
+        self.set_fetch_callback(self.fetch_callback)
+        self.set_user(pmContext.pmGetConfig('PCP_USER'))
+
+    def fetch_callback(self, cluster, item, inst):
+        return ['hello PMDA', 1]
+
+
+if __name__ == '__main__':
+    EtcdPMDA('etcd', 400).run()
