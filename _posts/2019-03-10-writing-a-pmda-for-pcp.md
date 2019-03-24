@@ -15,6 +15,9 @@ We will implement a PMDA that reads [statistics](https://coreos.com/etcd/docs/la
 
 Lets get started!
 
+* TOC
+{:toc}
+
 # Prerequisites
 ---
 ## PCP development tools
