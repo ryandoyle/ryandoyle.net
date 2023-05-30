@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.4.6",
-  "serial": 7,
+  "serial": 6,
   "lineage": "c57014cf-1f84-4d7f-87ad-446e3b50b58f",
   "outputs": {
     "s3_bucket": {
@@ -14,7 +14,7 @@
       "mode": "managed",
       "type": "aws_route53_record",
       "name": "apex",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "provider": "provider[\"registry.terraform.io/-/aws\"]",
       "instances": [
         {
           "schema_version": 2,
@@ -41,7 +41,7 @@
       "mode": "managed",
       "type": "aws_route53_record",
       "name": "www",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "provider": "provider[\"registry.terraform.io/-/aws\"]",
       "instances": [
         {
           "schema_version": 2,
@@ -68,7 +68,7 @@
       "mode": "managed",
       "type": "aws_s3_bucket",
       "name": "redirect",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "provider": "provider[\"registry.terraform.io/-/aws\"]",
       "instances": [
         {
           "schema_version": 0,
@@ -105,7 +105,7 @@
       "mode": "managed",
       "type": "aws_s3_bucket",
       "name": "site",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "provider": "provider[\"registry.terraform.io/-/aws\"]",
       "instances": [
         {
           "schema_version": 0,
