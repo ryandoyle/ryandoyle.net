@@ -9,12 +9,6 @@ resource "aws_s3_bucket_acl" "site" {
   bucket = aws_s3_bucket.site.id
   acl = "private"
 }
-resource "aws_s3_bucket_website_configuration" "site" {
-  bucket = aws_s3_bucket.site.id
-  index_document {
-    suffix = "index.html"
-  }
-}
 
 resource "aws_acm_certificate" "site" {
   domain_name       = "ryandoyle.net"
