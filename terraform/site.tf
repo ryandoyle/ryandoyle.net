@@ -115,9 +115,7 @@ resource "aws_route53_record" "apex" {
 
   alias {
     evaluate_target_health = false
-#    name = aws_s3_bucket_website_configuration.site.website_domain
     name = aws_cloudfront_distribution.site.domain_name
-#    zone_id = aws_s3_bucket.site.hosted_zone_id
     zone_id = aws_cloudfront_distribution.site.hosted_zone_id
   }
 }
